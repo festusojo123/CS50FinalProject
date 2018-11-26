@@ -50,8 +50,11 @@ def index():
 
 
 
+
+
+
     # """Show portfolio of stocks"""
-    # currentUser = session["user_id"]
+    currentUser = session["user_id"]
 
     # if request.method == "GET":
     #     # select info for each stock and sum the # in each group
@@ -98,12 +101,19 @@ def index():
     #     return redirect("/")
 
 
-@app.route("/buy", methods=["GET", "POST"])
+@app.route("/new", methods=["GET", "POST"])
 @login_required
-def buy():
+def new():
     # allow them to add new events & set them up as event organizer
     # allow them to sign up for event already on calendar
     # email person who's in charge of that event
+
+
+
+
+
+
+
 
     # """Buy shares of stock"""
     # if request.method == "GET":
@@ -120,7 +130,7 @@ def buy():
     #         return apology("Sorry, please insert a valid number of stocks to purchase")
 
     #     share = int(shares)
-    #     currentUser = session["user_id"]
+         currentUser = session["user_id"]
     #     quote = lookup(symbol)
     #     name = quote["name"]
     #     newSymbol = quote["symbol"]
@@ -298,13 +308,35 @@ def register():
         return render_template("register.html")
 
 
-@app.route("/sell", methods=["GET", "POST"])
+@app.route("/venmo", methods=["GET", "POST"])
 @login_required
-def sell():
-    """Sell shares of stock"""
-    # allow user to log in to their lyft/uber accounts
-    # allow user to log in to Venmo
-    # allow user to get reminders via email the day before/of their event
+def venmo():
+    currentUser = session["user_id"]
+    checked = db.execute("SELECT symbol FROM storage WHERE user_id = :t", t=currentUser)
+    checker = set(val for dic in checked for val in dic.values())
+    for x in checker:
+         x
+
+    """Allows user to log in to Venmo to pay any registration fees"""
+    if request.method == "GET":
+        return render_template("venmo.html", checker=checker)
+
+    if request.method == "POST":
+        flash('You have paid the fee for your event!')
+        return redirect("/")
+
+@app.route("/transport", methods=["GET", "POST"])
+@login_required
+def transport():
+    """Allow user to log in to their lyft/uber accounts"""
+    if request.method == "GET":
+        return render_template("transport.html")
+
+    if request.method == "POST":
+        flash('Your ride has been ordered through the 3rd party app!')
+        return redirect("/")
+
+
 
 
 
