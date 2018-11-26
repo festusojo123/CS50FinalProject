@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="/venmo" method="post">
+        <select class="form-control" name="symbol">
+            <option disabled selected value="">Event You Plan on Attending</option>
+                {% for x in checker %}
+                    <option value= "{{x}}"> {{x}} </option>
+                {% endfor %}
+        </select>
+
+    <a href="https://www.lyft.com/login">
+       <button>Click Here to Be Redirected to Lyft</button>
+    </a>
+
+    <a href="https://www.uber.com/sign-in/">
+       <button>Click Here to Be Redirected to Uber</button>
+    </a>
+
+        <button class="btn btn-primary" type="submit">You Have Ordered a Ride to Your Event!</button>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="/venmo" method="post">
+        <select class="form-control" name="symbol">
+            <option disabled selected value="">Event You Plan on Attending</option>
+                {% for x in checker %}
+                    <option value= "{{x}}"> {{x}} </option>
+                {% endfor %}
+        </select>
+
+    <a href="https://venmo.com/account/sign-in/">
+       <button>Click Here to Be Redirected to Venmo</button>
+    </a>
+
+        <button class="btn btn-primary" type="submit">Thanks for Paying for Your Event!</button>
+    </form>
+{% endblock %}
+
