@@ -46,119 +46,8 @@ def index():
     # display events near the user on that day (or just in Boston in general)
     # display users who are already at that event
     # put these events on said calendar?
-
-
-
-
-
-
-
-    # """Show portfolio of stocks"""
     currentUser = session["user_id"]
 
-    # if request.method == "GET":
-    #     # select info for each stock and sum the # in each group
-    #     stocks = db.execute("SELECT symbol FROM transactions WHERE user_id = :t GROUP BY name_of_stock", t=currentUser)
-    #     # numberOfShares = db.execute("SELECT name_of_stock SUM(number_of_stock) FROM transactions WHERE user_id = :t GROUP BY name_of_stock", t=currentUser)
-    #     shares = db.execute(
-    #         "SELECT name_of_stock, SUM(number_of_stock) FROM transactions WHERE user_id = :t GROUP BY name_of_stock", t=currentUser)
-
-    #     # loop through stocks
-    #     counter = 0
-    #     tracker = 0
-    #     for x in stocks:
-    #         x["sum"] = shares[counter]["SUM(number_of_stock)"]
-    #         quote = lookup(x["symbol"])
-    #         x["name"] = quote["name"]
-    #         # which stocks the user owns, the numbers of shares owned, the current price of each stock, and the total value of each holding (
-    #         x["price"] = quote["price"]
-    #         x["total"] = x["sum"] * x["price"]
-    #         # print(x["total"])
-    #         tracker += x["sum"] * x["price"]
-    #         counter = counter+1
-
-    #     cashBalance = db.execute("SELECT cash FROM users WHERE id = :t", t=currentUser)
-    #     precash = cashBalance[0]["cash"]
-
-    #     # all of the stock totals together???//
-    #     grandtotal = precash + tracker
-    #     grandTotal = usd(grandtotal)
-    #     cash = usd(precash)
-
-    #     # return index page with correct info
-    #     return render_template("index.html", stocks=stocks, cash=cash, grandTotal=grandTotal)
-
-    # if request.method == "POST":
-    #     cashme = request.form.get("cash")
-    #     cashToAdd = float(cashme)
-
-    #     currentMoneys = db.execute("SELECT cash FROM users WHERE id = :u", u=currentUser)
-    #     currentMoney = currentMoneys[0]["cash"]
-
-    #     newCash = float(currentMoney + cashToAdd)
-
-    #     db.execute("UPDATE users SET cash = :y WHERE id = :x", x=currentUser, y=newCash)
-    #     return redirect("/")
-
-
-@app.route("/new", methods=["GET", "POST"])
-@login_required
-def new():
-    # allow them to add new events & set them up as event organizer
-    # allow them to sign up for event already on calendar
-    # email person who's in charge of that event
-
-
-
-
-
-
-
-
-    # """Buy shares of stock"""
-    # if request.method == "GET":
-    #     return render_template("buy.html")
-
-    # if request.method == "POST":
-    #     symb = request.form.get("symbol")
-    #     symbol = symb.upper()
-    #     if not symbol or lookup(symbol) == None:
-    #         return apology("Sorry, please insert a stock to purchase")
-
-    #     shares = request.form.get("shares")
-    #     if not shares or shares.isdigit() == False:
-    #         return apology("Sorry, please insert a valid number of stocks to purchase")
-
-    #     share = int(shares)
-         currentUser = session["user_id"]
-    #     quote = lookup(symbol)
-    #     name = quote["name"]
-    #     newSymbol = quote["symbol"]
-    #     price = quote["price"]
-    #     status = "BUY"
-
-    #     if quote == None:
-    #         return apology("Sorry, stock could not be looked up!")
-
-    #     #  see if user had enough money
-    #     premoney = db.execute("SELECT cash FROM users WHERE id = :u", u=currentUser)
-    #     money = premoney[0]["cash"]
-
-    #     if money < price:
-    #         return apology("Sorry, you do not have enough cash to purchase that stock")
-
-    #     else:
-    #         # add info into the table
-    #         moneyLeftover = money - (price * float(share))
-    #         db.execute("""INSERT INTO transactions (user_id, name_of_stock, price_of_stock, type_of_transaction, number_of_stock, symbol)
-    #         VALUES (:user_id, :name_of_stock, :price_of_stock, :type_of_transaction, :number_of_stock, :symbol)""",
-    #                   user_id=currentUser, name_of_stock=name, price_of_stock=price, type_of_transaction=status, number_of_stock=share, symbol=symbol)
-    #         # update cash
-    #         db.execute("UPDATE users SET cash = :y WHERE id = :x", x=currentUser, y=moneyLeftover)
-
-    #         flash('Bought!')
-
-    #         return redirect("/")
 
 
 @app.route("/check", methods=["GET"])
@@ -167,36 +56,11 @@ def check():
     # collect username info
     username = request.args.get("username")
     checker = db.execute("SELECT * FROM users WHERE username = :t", t=username)
-
     if not len(username) or checker:
         return jsonify(False)
     else:
         return jsonify(True)
 
-
-# @app.route("/history")
-# @login_required
-# def history():
-#     """Show history of transactions"""
-#     currentUser = session["user_id"]
-
-#     # select info for each stock and sum the # in each group
-#     transactions = db.execute("SELECT * FROM transactions WHERE user_id = :t", t=currentUser)
-
-#     # loop through transactions
-#     counter = 0
-#     for x in transactions:
-#         x["type_of_transaction"] = transactions[counter]["type_of_transaction"]
-#         x["name_of_stock"] = transactions[counter]["name_of_stock"]
-#         x["symbol"] = transactions[counter]["symbol"]
-#         x["price_of_stock"] = transactions[counter]["price_of_stock"]
-#         x["number_of_stock"] = transactions[counter]["number_of_stock"]
-#         x["date_of_transaction"] = transactions[counter]["date_of_transaction"]
-#         x["time_of_transaction"] = transactions[counter]["time_of_transaction"]
-#         counter = counter+1
-
-#     # return history page with correct info
-#     return render_template("history.html", transactions=transactions)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -247,30 +111,6 @@ def logout():
     return redirect("/")
 
 
-# @app.route("/quote", methods=["GET", "POST"])
-# @login_required
-# def quote():
-#     # if for get vs. post method
-#     if (request.method == "GET"):
-#         return render_template("quote.html")
-
-#     else:
-#         # Get stock quote
-#         symbol = request.form.get("symbol")
-#         if not symbol:
-#             return apology("Sorry, please insert a valid stock quote to view")
-
-#         quote = lookup(symbol)
-
-#         if quote != None:
-#             # embed value from look up into quoted.html
-#             name = quote["name"]
-#             newSymbol = quote["symbol"]
-#             price = usd(quote["price"])
-#             return render_template("quoted.html", quote=quote)
-#         else:
-#             return apology("Sorry, stock could not be looked up!")
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -310,6 +150,9 @@ def register():
 @app.route("/addevents", methods=["GET", "POST"])
 @login_required
 def addevents():
+    # allow them to add new events & set them up as event organizer
+    # allow them to sign up for event already on calendar
+    # email person who's in charge of that event
     currentUser = session["user_id"]
     if request.method == "GET":
         return render_template("addevents.html")
@@ -343,58 +186,6 @@ def transport():
         flash('Your ride has been ordered through the 3rd party app!')
         return redirect("/")
 
-
-
-
-
-    # currentUser = session["user_id"]
-    # checked = db.execute("SELECT symbol FROM transactions WHERE user_id = :t", t=currentUser)
-    # checker = set(val for dic in checked for val in dic.values())
-    # for x in checker:
-    #     x
-    # # see all owned stocks? - look into my portfolio??
-
-    # numOfStocksOwneds = db.execute("SELECT number_of_stock FROM transactions WHERE user_id = :t", t=currentUser)
-    # numOfStocksOwned = numOfStocksOwneds[0]["number_of_stock"]
-    # currentMoneys = db.execute("SELECT cash FROM users WHERE id = :u", u=currentUser)
-    # currentMoney = currentMoneys[0]["cash"]
-
-    # if request.method == "GET":
-    #     return render_template("sell.html", checker=checker)
-
-    # if request.method == "POST":
-    #     symbol = request.form.get("symbol")
-    #     # check if they own that stock
-    #     if not symbol or checker == False:
-    #         return apology("Sorry, please insert a stock which you own and want to sell")
-
-    #     shares = request.form.get("shares")
-    #     share = int(shares)
-
-    #     # check if they own enough of that stock
-    #     if not share or share > int(numOfStocksOwned):
-    #         return apology("Sorry, please insert a valid number of stocks which you own and want to purchase")
-
-    #     else:
-    #         # remove stock - log sale as negative quantity
-    #         quote = lookup(symbol)
-    #         name = quote["name"]
-    #         status = "SELL"
-    #         priceForSale = quote["price"]
-    #         numOfStocksMoved = (-share)
-
-    #         # separate database with current # of stocks? bc this will give me a new transaction, but wont' update the storage itself
-    #         db.execute("""INSERT INTO transactions (user_id, name_of_stock, symbol, price_of_stock, type_of_transaction, number_of_stock)
-    #         VALUES (:user_id, :name_of_stock, :symbol, :price_of_stock, :type_of_transaction, :number_of_stock)""",
-    #                   user_id=currentUser, name_of_stock=name, symbol=symbol, price_of_stock=priceForSale, type_of_transaction=status, number_of_stock=numOfStocksMoved)
-
-    #         # update cash
-    #         newMoney = int(currentMoney) + int(priceForSale * share)
-    #         db.execute("UPDATE users SET cash = :y WHERE id = :x", x=currentUser, y=newMoney)
-
-    #         flash('Sold!')
-
-    #         return redirect("/")
 
 
 def errorhandler(e):
