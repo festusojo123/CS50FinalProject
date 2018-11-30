@@ -1,23 +1,24 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Log In
+    Get a Ride
 {% endblock %}
 
 {% block main %}
     <img src = "https://pbs.twimg.com/profile_images/1063591416918552576/lg72DZIS_400x400.jpg" alt = "Lyft">
+    <br>
     <form action="/transport" method="post">
         <a href="https://www.lyft.com/login">
-            <button class="btn btn-info" type="submit" formaction="https://www.lyft.com/">Click Here to be Redirected to Lyft!</button>
+            <button class="btn btn-info" type="submit" formaction="https://www.lyft.com/">Get a Ride Via Lyft!</button>
         </a>
     </form>
     <br>
     <br>
-
     <img src = "https://pbs.twimg.com/profile_images/697918062138433536/YpWQjGdP_400x400.png" alt = "Uber">
+    <br>
     <form action="/transport" method="post">
         <a href="https://www.uber.com/sign-in">
-            <button class="btn btn-info" type="submit" formaction="https://www.uber.com/">Click Here to be Redirected to Uber!</button>
+            <button class="btn btn-info" type="submit" formaction="https://www.uber.com/">Get a Ride Via Uber!</button>
         </a>
     </form>
 {% endblock %}
