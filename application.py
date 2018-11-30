@@ -39,20 +39,22 @@ Session(app)
 db = SQL("sqlite:///storage.db")
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 @login_required
 def index():
-    # show users who is currently going to an event through a calendar
-    # display events near the user on that day (or just in Boston in general)
-    # display users who are already at that event
-    # put these events on said calendar?
-    currentUser = session["user_id"]
+    events = db.execute("SELECT * FROM events")
+    # loop through transactions
+    counter = 0
+    for x in events:
+        x["event_name"] = events[counter]["event_name"]
+        x["location"] = events[counter]["location"]
+        x["contact"] = events[counter]["contact"]
+        x["other_info"] = events[counter]["other_info"]
+        counter = counter+1
 
+     # return page with correct info
+    return render_template("index.html", events=events)
 
-# Refer to the Python quickstart on how to setup the environment:
-# https://developers.google.com/calendar/quickstart/python
-# Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
-    return render_template("index.html")
 
 @app.route("/check", methods=["GET"])
 def check():
@@ -97,7 +99,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/addevent")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -157,32 +159,33 @@ def addevents():
     # allow them to add new events & set them up as event organizer
     # allow them to sign up for event already on calendar
     # email person who's in charge of that event
+
+    if request.method == "GET":
+        return render_template("addevents.html")
     if request.method == "POST":
-        response = requests.post("https://GoogleCalendarzakutynskyV1.p.rapidapi.com/createSimpleEvent",
-        headers={
-            "X-RapidAPI-Key": "f05cd5f99bmshc767ff2344bac45p10c761jsnaf021536d3a0",
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        params={
-            "calendarId": eventname,
-            "text": "a",
-            "accessToken": "a",
-            otherInfo = {
-            "location": location,
-            "otherinfo": names,
-            # can I make this a updatable bits
-            "contact": contact,
-            "currentUser" = session["user_id"],
-            }
-          }
-        )
-        return render_template("addevents.html", calendarID= eventname, text=  , accessToken = ???. otherinfo=otherinfo)
+        eventname = request.form.get("eventname")
+        location = request.form.get("location")
+        contact = request.form.get("contact")
+        otherinfo = request.form.get("otherinfo")
+        if not eventname:
+            return apology("Sorry, please insert a valid event!")
+        if not location:
+            return apology("Sorry, please insert a valid location!")
+        if not contact:
+            return apology("Sorry, please insert your contact info!")
+        currentUser = session["user_id"]
+
+        # add info into the table
+        db.execute("""INSERT INTO events (event_name, location, contact, otherinfo, user)
+        VALUES (:event_name, :location, :contact, :otherinfo, user)""",
+                   event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=currentUser)
+        flash('Thanks for registering!')
+        return redirect("/")
 
 
 @app.route("/venmo", methods=["GET", "POST"])
 @login_required
 def venmo():
-
     """Allows user to log in to Venmo to pay any registration fees"""
     if request.method == "GET":
         return render_template("venmo.html")
@@ -201,7 +204,6 @@ def transport():
     if request.method == "POST":
         flash('Your ride has been ordered through the 3rd party app!')
         return redirect("/")
-
 
 
 def errorhandler(e):

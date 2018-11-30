@@ -23,8 +23,29 @@
       </table>
       </div>
    </form>
+
+
    </center>
+
+   <table class="table">
+        <thead>
+            <th>Event Name</th>
+            <th>Location</th>
+            <th>Contact Info</th>
+            <th>(Any) Other Information</th>
+        </thead>
+        <tbody>
+        {% for x in events %}
+        <tr>
+            <td>{{x.event_name}}</td>
+            <td>{{x.location}}</td>
+            <td>{{x.contact}}</td>
+            <td>${{x.other_info}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
    </BODY>
 
 {% endblock %}
-
