@@ -7,10 +7,9 @@
 {% block main %}
 
    <HEAD>
-      <TITLE>Home</TITLE>
+      <TITLE>Find Other Events in the Area!</TITLE>
    </HEAD>
    <BODY>
-      <iframe src="https://calendar.google.com/calendar/b/3/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=movesappmoves%40gmail.com&amp;color=%231B887A&amp;ctz=America%2FNew_York" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
    <center><form method="get" action="http://www.google.com/search">
       <div style="border:2px dotted black;padding:4px;width:15em;">
       <table border="0" align="center" cellpadding="0">
@@ -44,7 +43,19 @@
         </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table
+
+    <h3>Add Event to Your Google Calendar</h3>
+    <a href="http://www.google.com/calendar/event?
+    action=TEMPLATE
+    &text=[event-title]
+    &dates=[start-custom format='Ymd\\THi00\\Z']/[end-custom format='Ymd\\THi00\\Z']
+    &details=[description]
+    &location=[location]
+    &trp=false
+    &sprop=
+    &sprop=name:"
+    target="_blank" rel="nofollow">Add to my calendar</a>
 
    </BODY>
 

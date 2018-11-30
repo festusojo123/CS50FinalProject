@@ -50,6 +50,7 @@ def index():
         x["location"] = events[counter]["location"]
         x["contact"] = events[counter]["contact"]
         x["other_info"] = events[counter]["other_info"]
+        x["yourname"] = events[counter]["user"]
         counter = counter+1
 
      # return page with correct info
@@ -99,7 +100,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect("/addevent")
+        return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -163,23 +164,25 @@ def addevents():
     if request.method == "GET":
         return render_template("addevents.html")
     if request.method == "POST":
+        yourname = request.form.get("yourname")
         eventname = request.form.get("eventname")
         location = request.form.get("location")
         contact = request.form.get("contact")
         otherinfo = request.form.get("otherinfo")
+        if not yourname:
+            return apology("Sorry, please insert your first & last name!")
         if not eventname:
             return apology("Sorry, please insert a valid event!")
         if not location:
             return apology("Sorry, please insert a valid location!")
         if not contact:
             return apology("Sorry, please insert your contact info!")
-        currentUser = session["user_id"]
 
         # add info into the table
         db.execute("""INSERT INTO events (event_name, location, contact, otherinfo, user)
         VALUES (:event_name, :location, :contact, :otherinfo, user)""",
-                   event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=currentUser)
-        flash('Thanks for registering!')
+                   event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=yourname)
+        flash('Thanks for registering for an event!')
         return redirect("/")
 
 
