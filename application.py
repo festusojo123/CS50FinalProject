@@ -198,15 +198,10 @@ def addevents():
 @app.route("/venmo", methods=["GET", "POST"])
 @login_required
 def venmo():
-    currentUser = session["user_id"]
-    checked = db.execute("SELECT symbol FROM storage WHERE user_id = :t", t=currentUser)
-    checker = set(val for dic in checked for val in dic.values())
-    for x in checker:
-         x
 
     """Allows user to log in to Venmo to pay any registration fees"""
     if request.method == "GET":
-        return render_template("venmo.html", checker=checker)
+        return render_template("venmo.html")
 
     if request.method == "POST":
         flash('You have paid the fee for your event!')
