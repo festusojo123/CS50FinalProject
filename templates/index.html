@@ -6,44 +6,15 @@
 
 {% block main %}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <h1 class="mb-3">Portfolio</h1>
-
-    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
-
-    <table class="table">
-        <thead>
-            <th>Symbol of Stock</th>
-            <th>Name of Stock</th>
-            <th>Current Price</th>
-            <th>Number of Shares</th>
-            <th>Total Value of Stock(s)</th>
-        </thead>
-        <tbody>
-        {% for x in stocks %}
-            <tr>
-                <td>{{x.symbol}}</td>
-                <td>{{x.name}}</td>
-                <td>{{x.price|usd}}</td>
-                <td>{{x.sum}}</td>
-                <td>{{x.total|usd}}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <hr>
-
-    <b>User's Cash Balance:</b> {{cash}}<hr>
-    <b>User's Grand Total:</b> {{grandTotal}}<hr>
-
-    <form action="/" method="post">
-
-        <div class="form-group">
-            <input class="form-control" name="cash" placeholder="Amount of USD to add" type="text">
-        </div>
-        <button class="btn btn-primary" type="submit">Add More Money</button>
-
-    </form>
+   <HEAD>
+      <TITLE>Testing Weather Data</TITLE>
+   </HEAD>
+   <BODY>
+      <div id="weather">
+         <p>
+         <?php include "index.php"; ?>
+      </div>
+   </BODY>
 
 {% endblock %}
 
