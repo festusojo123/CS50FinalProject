@@ -55,6 +55,7 @@ def index():
 
     # """Show portfolio of stocks"""
     currentUser = session["user_id"]
+    return render_template("index.html")
 
     # if request.method == "GET":
     #     # select info for each stock and sum the # in each group
@@ -101,13 +102,13 @@ def index():
     #     return redirect("/")
 
 
-@app.route("/new", methods=["GET", "POST"])
+@app.route("/add", methods=["GET", "POST"])
 @login_required
-def new():
+def add():
     # allow them to add new events & set them up as event organizer
     # allow them to sign up for event already on calendar
     # email person who's in charge of that event
-
+    return render_template("addevents.html")
 
 
 
@@ -130,7 +131,7 @@ def new():
     #         return apology("Sorry, please insert a valid number of stocks to purchase")
 
     #     share = int(shares)
-         currentUser = session["user_id"]
+         # currentUser = session["user_id"]
     #     quote = lookup(symbol)
     #     name = quote["name"]
     #     newSymbol = quote["symbol"]
