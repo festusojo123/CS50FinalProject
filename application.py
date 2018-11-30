@@ -229,7 +229,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/addevent")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -306,6 +306,13 @@ def register():
     # post request now
     if request.method == "GET":
         return render_template("register.html")
+
+@app.route("/addevents", methods=["GET", "POST"])
+@login_required
+def addevents():
+    currentUser = session["user_id"]
+    if request.method == "GET":
+        return render_template("addevents.html")
 
 
 @app.route("/venmo", methods=["GET", "POST"])
