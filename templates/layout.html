@@ -27,17 +27,17 @@
     <body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="red">MOVES</span></a>
+            <a class="navbar-brand" href="/"><span class="blue">MOVES</span></a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/quote">Find Events</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">Find Events</a></li>
                         <li class="nav-item"><a class="nav-link" href="/addevents">Add Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/sell">Get A Ride</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">Get Tickets</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/transport">Get A Ride</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/venmo">Get Tickets</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
