@@ -157,11 +157,26 @@ def addevents():
     # allow them to add new events & set them up as event organizer
     # allow them to sign up for event already on calendar
     # email person who's in charge of that event
-    currentUser = session["user_id"]
     if request.method == "POST":
-        return render_template("addevents.html")
-    else:
-        return render_template("addevents.html")
+        response = requests.post("https://GoogleCalendarzakutynskyV1.p.rapidapi.com/createSimpleEvent",
+        headers={
+            "X-RapidAPI-Key": "f05cd5f99bmshc767ff2344bac45p10c761jsnaf021536d3a0",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        params={
+            "calendarId": eventname,
+            "text": "a",
+            "accessToken": "a",
+            otherInfo = {
+            "location": location,
+            "otherinfo": names,
+            # can I make this a updatable bits
+            "contact": contact,
+            "currentUser" = session["user_id"],
+            }
+          }
+        )
+        return render_template("addevents.html", calendarID= eventname, text=  , accessToken = ???. otherinfo=otherinfo)
 
 
 @app.route("/venmo", methods=["GET", "POST"])
