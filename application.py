@@ -47,7 +47,7 @@ def index():
     # display users who are already at that event
     # put these events on said calendar?
     currentUser = session["user_id"]
-
+    return render_template("index.html")
 
 
 @app.route("/check", methods=["GET"])
