@@ -154,7 +154,9 @@ def addevents():
     # allow them to sign up for event already on calendar
     # email person who's in charge of that event
     currentUser = session["user_id"]
-    if request.method == "GET":
+    if request.method == "POST":
+        return render_template("addevents.html")
+    else:
         return render_template("addevents.html")
 
 

@@ -6,19 +6,17 @@
 
 {% block main %}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <h1 class="mb-3">Add Events</h1>
+    <h1 class="mb-3">Add an Event</h1>
 
     <form action="/addevents" method="post">
 
         <div class="form-group">
-            <input class="form-control" name="eventname" placeholder="Event Name" type="text">
-            <input class="form-control" name="location" placeholder="Location" type="text">
-            <input type="datetime-local" id="event-time"name="event-time" value="2018-11-28T19:30" min="2018-11-28T00:00" max="2021-12-14T00:00">
-            <input class="form-control" name="email" placeholder="Contact email" type="text">
-            <input class="form-control" name="otherinfo" placeholder="Additional Info" type="text">
+                <input class="form-control" name="eventname" placeholder="Event Name" type="text">
+                <input class="form-control" name="location" placeholder="Location" type="text">
+                <input class="form-control" name="otherinfo" placeholder="Additional Info" type="text">
+                <input class="form-control" name="contact" placeholder="Contact Email" type="text">
         </div>
-        <button class="btn btn-primary" type="submit">Add More Money</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
 
     </form>
 
