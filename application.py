@@ -69,7 +69,6 @@ def check():
         return jsonify(True)
 
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -118,7 +117,6 @@ def logout():
     return redirect("/")
 
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     # Register user
@@ -154,6 +152,7 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
 
+
 @app.route("/addevents", methods=["GET", "POST"])
 @login_required
 def addevents():
@@ -174,13 +173,13 @@ def addevents():
         if not eventname:
             return apology("Sorry, please insert a valid event!")
         if not location:
-            return apology("Sorry, please insert a valid location!")
+            return apology("Sorry, please insert a valid location and date/time info!")
         if not contact:
             return apology("Sorry, please insert your contact info!")
 
         # add info into the table
-        db.execute("""INSERT INTO events (event_name, location, contact, otherinfo, user)
-        VALUES (:event_name, :location, :contact, :otherinfo, user)""",
+        db.execute("""INSERT INTO events (event_name, location, contact, other_info, user)
+        VALUES (:event_name, :location, :contact, :other_info, :user)""",
                    event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=yourname)
         flash('Thanks for registering for an event!')
         return redirect("/")
@@ -196,6 +195,7 @@ def venmo():
     if request.method == "POST":
         flash('You have paid the fee for your event!')
         return redirect("/")
+
 
 @app.route("/transport", methods=["GET", "POST"])
 @login_required
