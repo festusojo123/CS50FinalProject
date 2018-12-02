@@ -208,6 +208,7 @@ def transport():
         flash('Your ride has been ordered through the 3rd party app!')
         return redirect("/")
 
+
 @app.route("/whoelse", methods=["GET", "POST"])
 @login_required
 def whoelse():
@@ -230,6 +231,7 @@ def whoelse():
 
      # return page with correct info
     return render_template("attendee.html", events=events)
+
 
 @app.route("/signup", methods=["GET", "POST"])
 @login_required
@@ -261,6 +263,7 @@ def signup():
                    event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=yourname)
         flash('Thanks for signing up for an event!')
         return redirect("/")
+
 
 def errorhandler(e):
     """Handle error"""
