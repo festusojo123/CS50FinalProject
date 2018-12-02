@@ -181,7 +181,7 @@ def addevents():
         db.execute("""INSERT INTO events (event_name, location, contact, other_info, user)
         VALUES (:event_name, :location, :contact, :other_info, :user)""",
                    event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=yourname)
-        flash('Thanks for registering for an event!')
+        flash('Thanks for registering a new event!')
         return redirect("/")
 
 
@@ -208,6 +208,59 @@ def transport():
         flash('Your ride has been ordered through the 3rd party app!')
         return redirect("/")
 
+@app.route("/whoelse", methods=["GET", "POST"])
+@login_required
+def whoelse():
+    """Allow user to log in to their lyft/uber accounts"""
+    if request.method == "GET":
+        return render_template("whoelse.html")
+
+    if request.method == "POST":
+        eventname = request.form.get("eventname")
+        events = db.execute("SELECT * FROM events WHERE event_name = :x", x=eventname)
+        # loop through transactions
+        counter = 0
+        for x in events:
+            x["event_name"] = events[counter]["event_name"]
+            x["location"] = events[counter]["location"]
+            x["contact"] = events[counter]["contact"]
+            x["other_info"] = events[counter]["other_info"]
+            x["yourname"] = events[counter]["user"]
+            counter = counter+1
+
+     # return page with correct info
+    return render_template("attendee.html", events=events)
+
+@app.route("/signup", methods=["GET", "POST"])
+@login_required
+def signup():
+    # allow them to add new events & set them up as event organizer
+    # allow them to sign up for event already on calendar
+    # email person who's in charge of that event
+
+    if request.method == "GET":
+        return render_template("signup.html")
+    if request.method == "POST":
+        yourname = request.form.get("yourname")
+        eventname = request.form.get("eventname")
+        location = request.form.get("location")
+        contact = request.form.get("contact")
+        otherinfo = request.form.get("otherinfo")
+        if not yourname:
+            return apology("Sorry, please insert your first & last name!")
+        if not eventname:
+            return apology("Sorry, please insert a valid event!")
+        if not location:
+            return apology("Sorry, please insert a valid location and date/time info!")
+        if not contact:
+            return apology("Sorry, please insert your contact info!")
+
+        # add info into the table
+        db.execute("""INSERT INTO events (event_name, location, contact, other_info, user)
+        VALUES (:event_name, :location, :contact, :other_info, :user)""",
+                   event_name=eventname, location=location, contact=contact, other_info=otherinfo, user=yourname)
+        flash('Thanks for signing up for an event!')
+        return redirect("/")
 
 def errorhandler(e):
     """Handle error"""

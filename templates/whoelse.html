@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Events
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="mb-3"><font face="impact" color="#006dcc"><b>Who Else is Attending an Event?</b></font></h1>
+
+    <form action="/whoelse" method="post">
+
+        <div class="form-group">
+            <input class="form-control" name="eventname" placeholder="Event Name" type="text">
+            <br>
+            <br>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+    </form>
+
+{% endblock %}
